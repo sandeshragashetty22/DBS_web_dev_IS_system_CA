@@ -1,32 +1,14 @@
 from django.shortcuts import render, HttpResponse
 from . import models
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 
-recipes=[
-  {
-  'author': 'sandesh',
-  'title': 'Chicken Masala',
-  'directions': 'chicken masala',
-  'date_posted': 'jan 23, 2024'
-},
-  {
-  'author': 'sachin',
-  'title': 'Paneer Masala',
-  'directions': 'chicken masala',
-  'date_posted': 'jan 03, 2024'
-},
-  {
-  'author': 'sandesh',
-  'title': 'Egg Masala',
-  'directions': 'chicken masala',
-  'date_posted': 'jan 13, 2024'
-},
-  {
-  'author': 'sandesh',
-  'title': 'Avalakki Sushila',
-  'directions': 'chicken masala',
-  'date_posted': 'jan 27, 2024'
-}
-]
+
+class RecipeListView(ListView):
+  model = models.Recipe
+  template_name = 'recipes/home.html'
+  context_object_name = 'recipes'
 
 def home(request):
   recipes = models.Recipe.objects.all()
@@ -37,6 +19,35 @@ def home(request):
 
 
 def about(request):
-  return render(request, "recipes/about.html")
+  return render(request, 'recipes/about.html', {'title': 'about page'})
 
+class RecipeDetailView(DetailView):
+  model = models.Recipe
 
+class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+  model = models.Recipe
+  success_url = reverse_lazy('recipes-home')
+
+  def test_func(self):
+    recipe = self.get_object()
+    return self.request.user == recipe.author
+
+class RecipeCreateView(LoginRequiredMixin, CreateView):
+  model = models.Recipe
+  fields = ['title', 'description']
+
+  def form_valid(self, form):
+    form.instance.author = self.request.user
+    return super().form_valid(form)
+
+class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+  model = models.Recipe
+  fields = ['title', 'description']
+
+  def test_func(self):
+    recipe = self.get_object()
+    return self.request.user == recipe.author
+
+  def form_valid(self, form):
+    form.instance.author = self.request.user
+    return super().form_valid(form)
