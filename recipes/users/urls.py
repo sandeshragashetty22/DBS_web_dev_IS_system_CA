@@ -3,6 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.register, name="recipe-register"),
-    path('', views.profile, name="user-profile"),
+    path('', views.register, name="user-register"),
+    path('profile/', views.profile, name="user-profile"),
 ]

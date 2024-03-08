@@ -1,9 +1,9 @@
-from django.shortcuts import render, HttpResponse
-from . import models
+from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
 
+from . import models
 
 class RecipeListView(ListView):
   model = models.Recipe
@@ -12,11 +12,10 @@ class RecipeListView(ListView):
 
 def home(request):
   recipes = models.Recipe.objects.all()
-  context={
+  context = {
     'recipes': recipes
   }
-  return render(request, "recipes/home.html", context)
-
+  return render(request, 'recipes/home.html', context)
 
 def about(request):
   return render(request, 'recipes/about.html', {'title': 'about page'})
