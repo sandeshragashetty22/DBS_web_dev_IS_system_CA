@@ -22,10 +22,14 @@ def about(request):
 
 class RecipeDetailView(DetailView):
   model = models.Recipe
+  template_name = 'recipes/recipe_detail.html'
+  context_object_name = 'recipes'
 
 class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
   model = models.Recipe
   success_url = reverse_lazy('recipes-home')
+  template_name = 'recipes/recipe_confirm_delete.html'
+  context_object_name = 'recipes'
 
   def test_func(self):
     recipe = self.get_object()
@@ -34,6 +38,8 @@ class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class RecipeCreateView(LoginRequiredMixin, CreateView):
   model = models.Recipe
   fields = ['title', 'description']
+  template_name = 'recipes/recipe_form.html'
+  context_object_name = 'recipes'
 
   def form_valid(self, form):
     form.instance.author = self.request.user
@@ -42,6 +48,8 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
   model = models.Recipe
   fields = ['title', 'description']
+  template_name = 'recipes/recipe_form.html'
+  context_object_name = 'recipes'
 
   def test_func(self):
     recipe = self.get_object()
