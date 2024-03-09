@@ -1,0 +1,12 @@
+/* static/styles.css */
+
+body {
+    background-color: yellow;
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    background-color: lightyellow;
+    border: 1px solid #dee2e6;
+}
