@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'recipeApp',
     'users',
-    'crispy_forms',
-    'social_django'
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -134,14 +133,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'recipes-home'
 LOGIN_URL = 'user-login'
 
-
-# settings.py
-AUTHENTICATION_BACKENDS = (
-    # ...
-    'social_core.backends.google.GoogleOAuth2',
-    # ...
-)
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '61473037621-773mkaa253uhjsb8494evnl1n3ef4dgn.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
