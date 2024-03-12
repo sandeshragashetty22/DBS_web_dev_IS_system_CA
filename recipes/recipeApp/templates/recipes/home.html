@@ -3,6 +3,12 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<form method="GET" action="{% url 'recipes-home' %}">
+  <input type="text" name="q" placeholder="Search recipes...">
+  <button type="submit">Search</button>
+</form>
+
 <h1>Food Recipes:</h1>
 <div class="row row-cols-2 g-3">
 {% for recipe in recipes %}

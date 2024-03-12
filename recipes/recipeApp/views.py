@@ -5,13 +5,25 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from . import models
 
+
 class RecipeListView(ListView):
   model = models.Recipe
   template_name = 'recipes/home.html'
   context_object_name = 'recipes'
 
+  def get_queryset(self):
+    query = self.request.GET.get('q')
+    if query:
+      return models.Recipe.objects.filter(title__icontains=query)
+    return super().get_queryset()
+
+
 def home(request):
-  recipes = models.Recipe.objects.all()
+  query = request.GET.get('q')
+  if query:
+    recipes = models.Recipe.objects.filter(title__icontains=query)
+  else:
+    recipes = models.Recipe.objects.all()
   context = {
     'recipes': recipes
   }
