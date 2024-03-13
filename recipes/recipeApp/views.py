@@ -11,23 +11,28 @@ class RecipeListView(ListView):
   template_name = 'recipes/home.html'
   context_object_name = 'recipes'
 
-  def get_queryset(self):
-    query = self.request.GET.get('q')
-    if query:
-      return models.Recipe.objects.filter(title__icontains=query)
-    return super().get_queryset()
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['categories'] = models.Recipe.CATEGORY_CHOICES
+    return context
+
 
 
 def home(request):
-  query = request.GET.get('q')
-  if query:
-    recipes = models.Recipe.objects.filter(title__icontains=query)
-  else:
-    recipes = models.Recipe.objects.all()
+  categories = models.Recipe.objects.values_list('category', flat=True).distinct()
+  recipes = models.Recipe.objects.all()
   context = {
+    'categories': categories,
     'recipes': recipes
   }
   return render(request, 'recipes/home.html', context)
+
+def category_recipes(request, category):
+  recipes = models.Recipe.objects.filter(category=category)
+  context = {
+    'recipes': recipes
+  }
+  return render(request, 'recipes/category_recipes.html', context)
 
 def about(request):
   return render(request, 'recipes/about.html', {'title': 'about page'})
@@ -49,7 +54,7 @@ class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
   model = models.Recipe
-  fields = ['title', 'description']
+  fields = ['title', 'description',  'category']
   template_name = 'recipes/recipe_form.html'
   context_object_name = 'recipes'
 
@@ -59,7 +64,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
 class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
   model = models.Recipe
-  fields = ['title', 'description']
+  fields = ['title', 'description',  'category']
   template_name = 'recipes/recipe_form.html'
   context_object_name = 'recipes'
 

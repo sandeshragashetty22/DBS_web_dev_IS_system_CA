@@ -5,9 +5,9 @@
   <div class="container">
     <h1>{{ user.username }}'s Profile</h1>
     <p>Email: {{ user.email }}</p>
-    <p>Mobile Number: {{ form.mobile_number }}</p>
-    <p>Country: {{ form.country }}</p>
-    <p>Age: {{ form.age }}</p>
+    <p>Mobile Number: {{ user.mobile_number }}</p>
+    <p>Country: {{ user.country }}</p>
+    <p>Age: {{ user.age }}</p>
 
     <!-- Edit Form Toggle Button -->
     <button class="btn btn-outline-primary" onclick="toggleEditForm()">Edit Profile</button>

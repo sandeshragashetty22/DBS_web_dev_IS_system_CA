@@ -4,8 +4,15 @@ from django.urls import reverse
 
 # Create your models here.
 class Recipe(models.Model):
+  CATEGORY_CHOICES = [
+    ('Breakfast', 'Breakfast'),
+    ('Lunch', 'Lunch'),
+    ('Dinner', 'Dinner'),
+    ('Desserts', 'Desserts'),
+  ]
   title = models.CharField(max_length=100)
   description = models.TextField()
+  category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
 
   author = models.ForeignKey(User, on_delete=models.CASCADE)
 
