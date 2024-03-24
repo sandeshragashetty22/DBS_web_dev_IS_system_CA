@@ -17,12 +17,11 @@ class RecipeListView(ListView):
     return context
 
 
-
 def home(request):
-  categories = models.Recipe.objects.values_list('category', flat=True).distinct()
+  category = models.Recipe.objects.values_list('category', flat=True).distinct()
   recipes = models.Recipe.objects.all()
   context = {
-    'categories': categories,
+    'category': category,
     'recipes': recipes
   }
   return render(request, 'recipes/home.html', context)
@@ -30,6 +29,7 @@ def home(request):
 def category_recipes(request, category):
   recipes = models.Recipe.objects.filter(category=category)
   context = {
+    'category': category,
     'recipes': recipes
   }
   return render(request, 'recipes/category_recipes.html', context)

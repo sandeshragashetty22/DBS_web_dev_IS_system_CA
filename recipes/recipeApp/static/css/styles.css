@@ -1,12 +1,18 @@
-/* static/styles.css */
-
 body {
-    background-color: yellow;
-    margin: 0;
-    padding: 0;
+  background-image: url('/static/images/food_back.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.card {
-    background-color: lightyellow;
-    border: 1px solid #dee2e6;
+.categories-title,
+.recipes-title {
+color: white;
+}
+
+
+.category-recipes-container {
+  background-color: #5F9EA0;
+  padding: 20px;
+  border-radius: 10px;
 }

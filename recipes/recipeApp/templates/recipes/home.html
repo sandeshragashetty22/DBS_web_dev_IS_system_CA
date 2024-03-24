@@ -1,19 +1,21 @@
 {% extends "recipes/base.html" %}
 {% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <h2>Categories</h2>
+      <h2 class="categories-title">Categories</h2>
       <ul class="list-group">
         {% for category, _ in categories %}
         <li class="list-group-item">
-          <a href="{% url 'category-recipes' category %}">{{ category }}</a>
+          <a href="{% url 'category-recipes' category %}" class="category-tile">{{ category }}</a>
         </li>
         {% endfor %}
       </ul>
     </div>
     <div class="col-md-9">
-      <h2>Recipes</h2>
+      <h2 class="recipes-title">Recipes</h2>
       <div class="row row-cols-2 g-3">
         {% for recipe in recipes %}
         <div class="card my-4">

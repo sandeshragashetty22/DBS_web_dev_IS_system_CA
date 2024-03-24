@@ -1,8 +1,10 @@
 {% extends "recipes/base.html" %}
 {% block content %}
-<div class="container">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<div class="container category-recipes-container">
   <h2>Recipes for {{ category }}</h2>
-  <div class="row row-cols-2 g-3">
+<div class="row row-cols-2 g-3">
     {% for recipe in recipes %}
     <div class="card my-4">
       <div class="card-body">
