@@ -32,3 +32,9 @@ def profile(request):
 
     context = {'form': form}
     return render(request, 'users/profile.html', context)
+
+
+@login_required
+def social_callback(request):
+    # Handle the callback and redirect appropriately
+    return redirect('home')

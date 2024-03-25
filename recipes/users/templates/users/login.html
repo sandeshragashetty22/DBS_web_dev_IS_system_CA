@@ -1,7 +1,8 @@
+<!-- login.html -->
+
 {% extends "recipes/base.html" %}
-<!-- -->
 {% load crispy_forms_tags %}
-<!-- -->
+
 {% block content %}
 <div class="container">
   <form method="POST">
@@ -15,10 +16,9 @@
     </div>
   </form>
   <div class="border-top pt-3">
-    <a class="text-muted" href="{% url 'user-register' %}"
-      >Don't have an account? Sign up.</a>
+    <a class="text-muted" href="{% url 'user-register' %}">Don't have an account? Sign up.</a>
   </div>
-</div>
 
-<!-- -->
+  <a class="btn btn-outline-primary" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+</div>
 {% endblock content %}
